@@ -76,3 +76,6 @@ Imagenes del Proyecto
 
 ![alt text](image-6.png)
 
+Imagen de proyecto cargado y trabajando en Servidor web Tomcat 
+
+![alt text](image-7.png)
