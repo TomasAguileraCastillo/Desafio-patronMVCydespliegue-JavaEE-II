@@ -43,40 +43,53 @@
 			</div>
 		</nav>
 	</header>
+ 
 
+	<div>
+		<h1> ${mensaje}</h1>
+	</div> 
+ 
+ 
+ 
 	<!-- Seccion DataTable -->
 	<section id="seccionTabla">
 		<div class="container">
-			<div>
+			<div class="${v}">
+			
+			
+			
 				<br />
-				<table id="tbldirecciones">
+				<table id="tbldirecciones"  class=" border-danger 
+													table 
+													table-hover 
+													table-sm 
+													caption-top 
+													table-responsive" 
+													style="width:50%" 
+													>
+					 <caption>Lista de Direcciones</caption>
 					<thead>
 						<tr>
 							<th>Id</th>
 							<th>Direccion</th>
 							<th>Numeracion</th>
+				
 							 
 						</tr>
 					</thead>
-					<tbody>
-						<c:forEach var="a" items="${ldirecciones}">
+					<tbody class="table-group-divider">
+				
+					
+						<c:forEach var="d" items="${lista1}">
 							<tr>
-								<td><c:out value="${a.getid()}"></c:out></td>
-								<td><c:out value="${a.getnombre()}"></c:out></td>
-								<td><c:out value="${a.getnumeracion()}"></c:out></td>
-								 
-								<td><a
-									href="${pageContext.request.contextPath}/ProveedoresDetailUpdate?id=${a.get(0)}"
-									class="btn btn-success" data-bs-toggle="tooltip"
-									data-bs-title="Editar Registro"><i
-										class="bi bi-pencil-square"> </i></a> <a
-									href="${pageContext.request.contextPath}/ProveedoresDetails?id=${a.get(0)}&op=del"
-									class="btn btn-danger" data-bs-toggle="tooltip"
-									data-bs-title="Eliminar Registro"><i class="bi bi-trash3">
-									</i></a></td>
+								<td><c:out value="${d.id}"></c:out></td>
+								<td><c:out value="${d.nombre}"></c:out></td>
+								<td><c:out value="${d.numeracion}"></c:out></td>
 	
 							</tr>
 						</c:forEach>
+						
+						
 					</tbody>
 				</table>
 			</div>

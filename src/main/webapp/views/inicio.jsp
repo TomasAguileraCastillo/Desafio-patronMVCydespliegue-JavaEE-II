@@ -249,16 +249,19 @@ a.sidebar-link:hover {
                     </a>
                 </li>
             <div class="sidebar-footer">
-                <a href="#" class="sidebar-link">
+				<form  method="post" action="${pageContext.request.contextPath}/">		
+				<a href="" class="sidebar-link" type="submit">
                     <i class="bi bi-door-closed"></i>
                     <span>Cerrar Sesion</span>
                 </a>
+                </form>
+
             </div>
         </aside>
 		
 		<div class="main p-3">
             <div class="text-center">
-                <jsp:include page="admin.jsp"></jsp:include>
+                <jsp:include page="dash.jsp"></jsp:include>
                  <div>
 				
 			</div>
@@ -268,16 +271,7 @@ a.sidebar-link:hover {
                  
             </div>
         </div>
-		
 			
-			
-			
-			
-			
-		
-
-
-		
         
     </div>
 	

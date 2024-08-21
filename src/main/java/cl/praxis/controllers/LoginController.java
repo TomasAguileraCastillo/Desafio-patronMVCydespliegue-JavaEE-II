@@ -22,106 +22,88 @@ import cl.praxis.modelo.service.UsuarioServicios;
 @WebServlet("/acceso")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-     
-  
-    public LoginController() {
-        super();
-     }
 
- 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-  
-		getServletContext().getRequestDispatcher("/views/login.jsp").forward(request, response);
-		
+	public LoginController() {
+		super();
 	}
 
- 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String usuarioEmail = request.getParameter("usuarioEmail"); 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		getServletContext().getRequestDispatcher("/views/login.jsp").forward(request, response);
+
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String usuarioEmail = request.getParameter("usuarioEmail");
 		String clave = request.getParameter("clave");
 		Usuarios us = null;
- 	
-
 		UsuariosDAO uDAO = new UsuariosDAOImpl();
 		DireccionDAO dDAO = new DireccionDAOImpl();
-		
- 	
-		
- 		if(usuarioEmail == null && clave == null) {	
+		List<Direccion> l = new ArrayList();
+		if (usuarioEmail == null && clave == null) {
 			getServletContext().getRequestDispatcher("/views/login.jsp").forward(request, response);
-		}else {
+		} else {
 			us = uDAO.validadorLogeo(usuarioEmail, clave);
- 				
- 			if (us == null) {
- 				getServletContext().getRequestDispatcher("/login").forward(request, response);
- 			}else {
- 				
- 				
- 			String nick = us.getNick();
- 			int id = us.getId();
- 			String tipoUsuario = uDAO.leerRolAdmin(id);
- 			System.out.println("Tipo de Usuario " + tipoUsuario);
- 			if(tipoUsuario == "Administrador") {
- 				
- 				//List<String> l = new ArrayList();
- 				 
- 				DireccionDAO d = new DireccionDAOImpl();
- 				List<Direccion> l = new ArrayList();
- 				
- 				l = d.LeerDireccion1();
- 			
- 				
- 				
- 				//l.forEach(a -> {System.out.println(a);});
- 				
- 				
- 				//l.stream().forEach(System.out::print);
- 				
- 				
- 				//System.out.println(l.get(0).toString());
- 				
- 				 
- 				
- 				
- 				HttpSession session = request.getSession();
- 				session.setAttribute("isLogged", true);
- 				session.setAttribute("correo", usuarioEmail);
- 				session.setAttribute("nick", nick);
- 				session.setAttribute("tipoU", tipoUsuario);
- 				
- 				
- 				
- 				
- 				//session.setAttribute("lDirecciones", l);
- 				request.setAttribute("ldirecciones", l);
- 				
- 				
- 				getServletContext().getRequestDispatcher("/inicio").forward(request, response);
- 				
- 			}else if (tipoUsuario == "Usuario" ) {
- 				HttpSession session = request.getSession();
- 				session.setAttribute("isLogged", true);
- 				session.setAttribute("correo", usuarioEmail);
- 				session.setAttribute("nick", nick);
- 				session.setAttribute("tipoU", tipoUsuario);
- 				String mensaje = "Error de permisos";
- 				session.setAttribute("mensaje", mensaje);
- 				
- 				
- 				getServletContext().getRequestDispatcher("/views/usuarios.jsp").forward(request, response);
- 				
- 			}
- 			
- 			
- 			
- 			
- 			
+			if (us == null) {
+				getServletContext().getRequestDispatcher("/login").forward(request, response);
+			} else {
+				String nick = us.getNick();
+				int id = us.getId();
+				String tipoUsuario = uDAO.leerRolAdmin(id);
+				System.out.println("Tipo de Usuario " + tipoUsuario);
+				if (tipoUsuario == "Administrador") {
+					// List<String> l = new ArrayList();
+					//DireccionDAO d = new DireccionDAOImpl();
+					
+
+					l = dDAO.LeerDireccion1();
+
+					// l.forEach(a -> {System.out.println(a);});
+
+					// l.stream().forEach(System.out::print);
+
+					// System.out.println(l.get(0).toString());
+					
+					HttpSession session = request.getSession();
+					session.setAttribute("isLogged", true);
+					session.setAttribute("correo", usuarioEmail);
+					session.setAttribute("nick", nick);
+					session.setAttribute("tipoU", tipoUsuario);
+					session.setAttribute("mensaje", "");
+					session.setAttribute("v", "");
+
+				
+					//request.setAttribute("ldirecciones", l);
+					
+					
+					request.setAttribute("lista1", l);
+					//session.setAttribute("lista1", l);
+					
+			
+
+					getServletContext().getRequestDispatcher("/inicio").forward(request, response);
+
+				} else if (tipoUsuario == "Usuario") {
+					
+					HttpSession session = request.getSession();
+					session.setAttribute("isLogged", true);
+					session.setAttribute("correo", usuarioEmail);
+					session.setAttribute("nick", nick);
+					session.setAttribute("tipoU", tipoUsuario);
+					String mensaje = "Error de permisos, Ud. no es Administrador";
+					session.setAttribute("mensaje", mensaje);
+					session.setAttribute("v", "d-none");
+					
+
+					getServletContext().getRequestDispatcher("/inicio").forward(request, response);
+
+				}
+
 			}
 		}
-			 
+
 	}
-		 
-		 
+
 }
-
-

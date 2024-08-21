@@ -49,36 +49,10 @@
 		<div class="container">
 			<div>
 				<br />
-				<table id="tbldirecciones">
-					<thead>
-						<tr>
-							<th>Id</th>
-							<th>Direccion</th>
-							<th>Numeracion</th>
-							 
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="a" items="${ldirecciones}">
-							<tr>
-								<td><c:out value="${a.getid()}"></c:out></td>
-								<td><c:out value="${a.getnombre()}"></c:out></td>
-								<td><c:out value="${a.getnumeracion()}"></c:out></td>
-								 
-								<td><a
-									href="${pageContext.request.contextPath}/ProveedoresDetailUpdate?id=${a.get(0)}"
-									class="btn btn-success" data-bs-toggle="tooltip"
-									data-bs-title="Editar Registro"><i
-										class="bi bi-pencil-square"> </i></a> <a
-									href="${pageContext.request.contextPath}/ProveedoresDetails?id=${a.get(0)}&op=del"
-									class="btn btn-danger" data-bs-toggle="tooltip"
-									data-bs-title="Eliminar Registro"><i class="bi bi-trash3">
-									</i></a></td>
-	
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+				 
+				 
+				 
+				 
 			</div>
 		</div>
 	</section>
